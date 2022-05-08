@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: false
   },
+  // orders
 });
 
 module.exports = mongoose.model('User', userSchema);
