@@ -21,10 +21,14 @@ app.get('/', (req, res) => {
 const userRoutes = require('./routes/user');
 const clientRoutes = require('./routes/client');
 const storeRoutes = require('./routes/store');
+const orderRoutes = require('./routes/order');
+const itemRoutes = require('./routes/item');
 
 app.use('/api/users', userRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/stores', storeRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/items', itemRoutes);
 
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server listening at port ${process.env.PORT}`);

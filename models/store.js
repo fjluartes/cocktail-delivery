@@ -17,17 +17,34 @@ const storeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  menu: {
-    type: Array,
-    required: true
-  },
   createdOn: {
     type: Date,
     default: new Date()
   },
-  orders: {
-    type: Array
-  },
+  menu: [
+    {
+      itemId: {
+        type: String,
+        required: [true, 'itemId is required']
+      },
+      name: {
+        type: String,
+        required: [true, 'item name is required']
+      },
+      price: {
+        type: Number,
+        required: [true, 'item price is required']
+      }
+    }
+  ],
+  orders: [
+    {
+      orderId: {
+        type: String,
+        required: [true, 'orderId is required']
+      },
+    }
+  ],
 });
 
 module.exports = mongoose.model('Store', storeSchema);
