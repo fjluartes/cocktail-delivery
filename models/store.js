@@ -21,6 +21,10 @@ const storeSchema = new mongoose.Schema({
     type: Date,
     default: new Date()
   },
+  updatedOn: {
+    type: Date,
+    default: new Date()
+  },
   menu: [
     {
       itemId: {

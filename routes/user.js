@@ -24,7 +24,4 @@ router.get('/details', auth.verify, (req, res) => {
     .then(user => res.send(user));
 });
 
-// order drinks
-
-
 module.exports = router;

@@ -8,10 +8,17 @@ module.exports.storeExists = (params) => {
 };
 
 module.exports.addStore = (params) => {
-  return Store.findById(params.storeId)
-    .then(store => {
-      return store;
-    });
+  const store = new Store({
+    name: params.name,
+    address: params.address,
+    contactNo: params.contactNo,
+    clientId: params.clientId,
+    menu: params.menu
+  });
+
+  return store.save().then((user, err) => {
+    return (err) ? false : true;
+  });
 };
 
 module.exports.getStore = (params) => {

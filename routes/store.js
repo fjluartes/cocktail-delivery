@@ -8,12 +8,14 @@ router.post('/store-exists', (req, res) => {
     .then(result => res.send(result));
 });
 
-router.post('/add', (req, res) => {
+router.post('/add', auth.verify, (req, res) => {
+  const client = auth.decode(req.headers.authorization);
+  req.body.clientId = client.id;
   StoreController.addStore(req.body)
     .then(result => res.send(result));
 });
 
-router.get('/details', auth.verify, (req, res) => {
+router.get('/', auth.verify, (req, res) => {
   StoreController.getStore({ storeId: req.body.storeId })
     .then(store => res.send(store));
 });
@@ -23,7 +25,7 @@ router.put('/edit', auth.verify, (req, res) => {
     .then(result => res.send(result));
 });
 
-router.delete('/delete', (req, res) => {
+router.delete('/delete', auth.verify, (req, res) => {
   StoreController.deleteStore(req.body)
     .then(result => res.send(result));
 });

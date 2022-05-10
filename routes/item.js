@@ -9,8 +9,12 @@ router.get('/query', auth.verify, (req, res) => {
 });
 
 router.get('/filter', auth.verify, (req, res) => {
-  console.log(req.query);
   ItemController.getByFilter(req.query)
+    .then(result => res.send(result));
+});
+
+router.get('/lookup', auth.verify, (req, res) => {
+  ItemController.getById(req.query)
     .then(result => res.send(result));
 });
 
