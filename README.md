@@ -1,6 +1,6 @@
 # Cocktail Delivery API
 
-API endpoints for a Cocktail Delivery App. 
+API endpoints for a Cocktail Delivery App. Items/Drinks data from The Cocktail DB API. 
 
 ## Add User
 
