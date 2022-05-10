@@ -76,3 +76,9 @@ API endpoints for a Cocktail Delivery App.
 ```
 /api/items/filter?c=Cocktail
 ```
+
+## Search Item by ID (from CocktailDB)
+
+```
+/api/items/lookup?i=11007
+```
