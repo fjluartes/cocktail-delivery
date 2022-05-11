@@ -12,7 +12,7 @@ module.exports.storeExists = (params) => {
   }
 };
 
-module.exports.add = async (params) => {
+module.exports.add = (params) => {
   try {
     const store = new Store({
       name: params.name,
@@ -21,14 +21,18 @@ module.exports.add = async (params) => {
       clientId: params.clientId,
       menu: params.menu
     });
-    return await store.save()
-      .then(async (store, err) => {
-        const client = await Client.findById(params.clientId);
-        client.stores.push({
-          storeId: store._id,
-        });
-        
-        return (err) ? false : true;
+    return store.save()
+      .then((newStore, err) => {
+        return Client.findById(params.clientId)
+          .then((client, err) => {
+            client.stores.push({
+              storeId: newStore._id.toString()
+            });
+            return client.save()
+              .then((client, err) => {
+                return (err) ? false : true;
+              });
+          });
       });
   } catch (err) {
     return { error: err };

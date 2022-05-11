@@ -13,7 +13,7 @@ module.exports.orderExists = (params) => {
   }
 };
 
-module.exports.add = async (params) => {
+module.exports.add = (params) => {
   try {
     const order = new Order({
       userId: params.userId,
@@ -25,20 +25,31 @@ module.exports.add = async (params) => {
       total: params.total
     });
 
-    return await order.save().then(async (order, err) => {
-      const user = await User.findById(params.userId);
-      user.orders.push({
-        orderId: order._id,
-        status: order.status
+    return order.save()
+      .then((newOrder, err) => {
+        const orderId = newOrder._id.toString();
+        return User.findById(params.userId)
+          .then((user, err) => {
+            user.orders.push({
+              orderId,
+              status: newOrder.status
+            });
+            return user.save()
+              .then((user, err) => {
+                return Store.findById(params.storeId)
+                  .then((store, err) => {
+                    store.orders.push({
+                      orderId,
+                      status: newOrder.status
+                    });
+                    return store.save()
+                      .then((store, err) => {
+                        return (err) ? false : true;
+                      });
+                  });
+              });
+          });
       });
-      const store = await Store.findById(params.storeId);
-      store.orders.push({
-        orderId: order._id,
-        status: order.status
-      });
-      
-      return (err) ? false : true;
-    });
   } catch (err) {
     return { error: err };
   }

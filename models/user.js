@@ -26,13 +26,9 @@ const userSchema = new mongoose.Schema({
       orderId: {
         type: String
       },
-      createdOn: {
-        type: Date,
-        default: new Date()
-      },
       status: {
         type: String,
-        default: 'Active'
+        default: 'active'
       }
     }
   ]
