@@ -21,7 +21,21 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: false
   },
-  // orders
+  orders: [
+    {
+      orderId: {
+        type: String
+      },
+      createdOn: {
+        type: Date,
+        default: new Date()
+      },
+      status: {
+        type: String,
+        default: 'Active'
+      }
+    }
+  ]
 });
 
 module.exports = mongoose.model('User', userSchema);

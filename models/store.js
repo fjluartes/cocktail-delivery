@@ -44,11 +44,22 @@ const storeSchema = new mongoose.Schema({
   orders: [
     {
       orderId: {
-        type: String,
-        required: [true, 'orderId is required']
+        type: String
       },
+      createdOn: {
+        type: Date,
+        default: new Date()
+      },
+      status: {
+        type: String,
+        default: 'Active'
+      }
     }
   ],
+  isActive: {
+    type: Boolean,
+    default: true
+  },
 });
 
 module.exports = mongoose.model('Store', storeSchema);

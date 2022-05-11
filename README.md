@@ -54,6 +54,9 @@ API endpoints for a Cocktail Delivery App. Items/Drinks data from The Cocktail D
 
 ```
 {
+    "userName": "user-name",
+    "address": "user-address",
+    "contactNo": "user-contact-details",
     "items": [
         {
             "name": "drink-name-cocktaildb",
@@ -61,7 +64,7 @@ API endpoints for a Cocktail Delivery App. Items/Drinks data from The Cocktail D
             "quantity": quantity
         }
     ],
-    total: total-price
+    "total": total-price
 }
 ```
 

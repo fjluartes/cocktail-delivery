@@ -21,7 +21,13 @@ const clientSchema = new mongoose.Schema({
     type: Date,
     default: new Date()
   },
-  // stores
+  stores: [
+    {
+      storeId: {
+        type: String
+      }
+    }
+  ]
 });
 
 module.exports = mongoose.model('Client', clientSchema);
