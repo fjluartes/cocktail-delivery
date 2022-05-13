@@ -1,7 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const app = express();
+const mongoose = require('mongoose');
 require('dotenv').config();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.send("Successfully hosted");
+});
 
 mongoose.connection.once('open', () => {
   console.log("Connected to mongodb atlas");
@@ -9,13 +16,6 @@ mongoose.connection.once('open', () => {
 mongoose.connect(process.env.DB_CONN_STRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-  res.send("Successfully hosted");
 });
 
 const userRoutes = require('./routes/user');
@@ -30,6 +30,8 @@ app.use('/api/stores', storeRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/items', itemRoutes);
 
-app.listen(process.env.PORT || 4000, () => {
-  console.log(`Server listening at port ${process.env.PORT}`);
+process.on('unhandledRejection', (err) => {
+  console.log(err);
+  process.exit(1);
 });
+module.exports = app;
